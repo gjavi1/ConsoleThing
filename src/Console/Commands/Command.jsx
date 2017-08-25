@@ -1,4 +1,6 @@
-class Command {
+import React, { Component } from 'react';
+
+class Command extends Component {
 	match() {
 		return "Command";
 	}
