@@ -32,6 +32,8 @@ class ConsolePrompt extends Component {
     }
     
     renderValue() {
+
+        
 		if(this.props.point < 0) {
 			return [this.props.value];
 		} else if (this.props.point === this.props.value.length) {
@@ -380,7 +382,33 @@ class Console extends Component {
 		} else {
 			let command = this.state.promptText;
 			let history = this.state.history;
-			let log = this.state.log;
+            let log = this.state.log;
+            
+            // catch command here
+            if (command === "close") {
+                window.close();
+            }
+
+            if (command === "clear") {
+                // TODO
+                let prompts = Array.from(document.getElementsByClassName("react-console-prompt-box"));
+                let promptSize = prompts.length - 1;
+
+                prompts.forEach(function(element, index) {
+                    if (promptSize !== index) {
+                        element.remove();
+                    }
+                });
+
+                Array.from(document.getElementsByClassName("react-console-message")).forEach(function(element, id) {
+                    if (0 !== id) {
+                        element.remove();
+                    }
+                });
+                // this.return();
+            }
+
+
 			if(!history || history[history.length-1] !== command) {
 				history.push(command);
 			}
@@ -403,7 +431,12 @@ class Console extends Component {
 			}, () => {
 				this.scrollToBottom();
 				if (this.props.handler) {
-					this.props.handler(command);
+
+                    if (command === "clear") {
+                        this.return();
+                    } else {
+                        this.props.handler(command);
+                    }
 				} else {
 					this.return();
 				}
