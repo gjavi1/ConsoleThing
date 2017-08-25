@@ -751,7 +751,7 @@ class Console extends Component {
 	}
 	searchHistory = (direction = this.state.searchDirection, next = false) => {
 		let idx = this.state.historyn;
-		let inc = (direction == SearchDirection.Reverse)?1:-1;
+		let inc = (direction === SearchDirection.Reverse)?1:-1;
 		if(next) {
 			idx = idx + inc;
 		}
