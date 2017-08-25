@@ -1,24 +1,38 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+html, body, #root {
+    height: 100%;
+    overflow: hidden;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.react-console-container {
+    background: #353535;
+    position: absolute;
+    height: calc(100% - 40px);
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin: 10px;
+    overflow-y: auto;
+    color: #ffffff;
+    font-family: monospace;
+    font-size: 1.5rem;
 }
 
-.App-intro {
-  font-size: large;
+.react-console-cursor-idle{
+  background: #F0F8FF;
+	-webkit-animation: flash linear 1s infinite;
+	animation: flash linear 1s infinite;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@-webkit-keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .1; } 
+	100% { opacity: 1; }
+}
+@keyframes flash {
+	0% { opacity: 1; } 
+	50% { opacity: .1; } 
+	100% { opacity: 1; }
 }
