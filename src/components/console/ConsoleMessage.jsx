@@ -6,7 +6,7 @@ class ConsoleMessage extends Component {
         return <div className={`console-message${(this.props.type? ` console-message-${this.props.type}` : ``)}`}>
             {this.props.value.map((val)=>{
                 if(typeof val === 'string') {
-                    console.log(val);
+                    //console.log(val);
                     return val;
                 } else {
                     return JSON.stringify(val);

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ConsolePrompt from './console/ConsolePrompt';
 import ConsoleMessage from './console/ConsoleMessage';
+import Exit from './commands/Exit.jsx';
+import Clear from './commands/Clear.jsx';
 
 // Use ConsoleCommand and SearchDirection as ENUM
 export const ConsoleCommand = {
@@ -258,29 +260,14 @@ class Console extends Component {
 		let history = this.state.history;
 		let log = this.state.log;
 		
-		// catch command here
-		if (command === "exit") {
-			window.close();
-		}
+		let commands = [Exit, Clear];
 
-		if (command === "clear") {
-			// TODO
-			let prompts = Array.from(document.getElementsByClassName("console-prompt-box"));
-			let promptSize = prompts.length - 1;
-
-			prompts.forEach(function(element, index) {
-				if (promptSize !== index) {
-					element.remove();
-				}
-			});
-
-			Array.from(document.getElementsByClassName("console-message")).forEach(function(element, id) {
-				if (0 !== id) {
-					element.remove();
-				}
-			});
-		}
-
+		commands.forEach(function(e) {
+			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
+				let env = "hello world";
+				e.do(env);
+			}
+		});
 
 		if(!history || history[history.length-1] !== command) {
 			history.push(command);
