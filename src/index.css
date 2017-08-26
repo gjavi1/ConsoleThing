@@ -13,3 +13,22 @@ body {
     height: 100% !important;
     width: 100% !important;
 }
+
+.lelMessage {
+    background-image: -webkit-gradient(
+        linear, left top, right bottom,  
+        color-stop(0, #FF7272), color-stop(0.15, #FF7DFF), 
+        color-stop(0.3, #8B8BFE), color-stop(0.45, #8BFFFF), 
+        color-stop(0.6, #83FE83), color-stop(0.75, #83FE83), 
+        color-stop(0.9, #FFFF7C), color-stop(1, #FF7272) );
+    background-image: gradient( 
+        linear, left top, right top, 
+        color-stop(0, #FF7272), color-stop(0.15, #FF7DFF), 
+        color-stop(0.3, #8B8BFE), color-stop(0.45, #8BFFFF), 
+        color-stop(0.6, #83FE83), color-stop(0.75, #83FE83), 
+        color-stop(0.9, #FFFF7C), color-stop(1, #FF7272) );
+    color:transparent;
+    color:transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
