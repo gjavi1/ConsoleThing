@@ -2,17 +2,8 @@ import React, { Component } from 'react';
 import Utils from './console/Util'; 
 import {ConsolePrompt, ConsoleCommand, SearchDirection} from './console/ConsolePrompt';
 import ConsoleMessage from './console/ConsoleMessage';
-import Exit from './commands/Exit';
-import Clear from './commands/Clear';
-import Mkdir from './commands/Mkdir';
-import Rmdir from './commands/Rmdir';
-import Echo from './commands/Echo';
-import Touch from './commands/Touch';
-import Nano from './commands/Nano';
-import Ls from './commands/Ls';
+import {Commands} from "./commands/index";
 import ErrorMessage from './ErrorMessage';
-import Lelecho from './commands/Lelecho';
-let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Lelecho, Touch, Ls, Nano];
 
 class Console extends Component {
     constructor(props) {
@@ -222,7 +213,7 @@ class Console extends Component {
 		let commandFound = false;
 		let self = this;
 
-		commands.forEach(function(e) {
+		Commands.forEach(function(e) {
 			if (Utils.getFirstWord(command).toLowerCase() == e.match().toLowerCase()) {
 				out = e.do(command, self.state.consoleState);
 				commandFound = true;
