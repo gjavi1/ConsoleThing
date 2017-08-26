@@ -41,9 +41,6 @@ class Console extends Component {
 		};
     }
 	
-	componentWillUpdate() {
-		console.log(this.state.log);
-	}
     child = {
 		typer: [] || null,
 		container: [] || null,
@@ -86,53 +83,29 @@ class Console extends Component {
     
 	keyDown = (e) => {
 		const keyCodes = {
-			// return
 			13: this.acceptLine,
-			// left
 			37: this.backwardChar,
-			// right
 			39: this.forwardChar,
-			// up
 			38: this.previousHistory,
-			// down
 			40: this.nextHistory,
-			// backspace
 			8:  this.backwardDeleteChar,
-			// delete
 			46: this.deleteChar,
-			// end
 			35: this.endOfLine,
-			// start
 			36: this.beginningOfLine,
-			// tab
-			9: this.complete,
-			// esc
-			27: this.prefixMeta,
+			9: this.complete
 		};
 		const ctrlCodes = {
-			// C-a
 			65: this.beginningOfLine,
-			// C-e
 			69: this.endOfLine,
-			// C-f
 			70: this.forwardChar,
-			// C-b
 			66: this.backwardChar,
-			// C-l TODO
-			//76: this.clearScreen,
-			// C-p
 			80: this.previousHistory,
-			// C-n
 			78: this.nextHistory,
-			// C-r
 			82: this.reverseSearchHistory,
-			// C-s
 			83: this.forwardSearchHistory,
-			// C-d
-			// 86: this.paste,
 			68: this.deleteChar,
 			75: this.killLine,
-			67: this.cancelCommand,
+			67: this.cancelCommand
 		};
 		
 		if(this.state.acceptInput) {
