@@ -47,9 +47,9 @@ class Console extends Component {
 		focus: [] || null
     };
     
-    log = (...messages) => {
+    log = (messages) => {
 		let log = this.state.log;
-		log[this.state.log.length-1].message.push({value: messages});
+		log[this.state.log.length-1].message = messages;
 		this.setState({
 			log: log,
 		}, this.scrollIfBottom() );
@@ -218,8 +218,11 @@ class Console extends Component {
 
 		commands.forEach(function(e) {
 			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
-				let env = "hello world";
-				e.do(env);
+				let env = {"pwd": "/"};
+				let args = "";
+				let out = e.do(args, env);
+				
+
 			}
 		});
 
@@ -230,8 +233,10 @@ class Console extends Component {
 		log.push({
 			label: this.state.currLabel,
 			command: command,
-			message: []
+			message: "hello world2"
 		});
+
+		window.a = log;
 
 		this.setState({
 			acceptInput: false,
@@ -362,7 +367,7 @@ class Console extends Component {
 			log.push({
 				label: this.state.currLabel,
 				command: this.state.promptText,
-				message: []
+				message: ""
 			});
 			this.setState({
 				typer: "",
@@ -523,9 +528,7 @@ class Console extends Component {
 			{this.state.log.map( (val) => {
 				return [
 					<ConsolePrompt label={val.label} value={val.command} />,
-					...val.message.map( (val, idx) => {
-						return <ConsoleMessage key={idx} type={val.type} value={val.value} />;
-					})
+					<ConsoleMessage value={val.message} />
 				];
 			})}
 			{this.state.acceptInput?
