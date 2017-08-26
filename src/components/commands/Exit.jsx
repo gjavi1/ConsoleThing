@@ -2,10 +2,11 @@ class Exit {
     static match() {
         return "exit";
     }
-    static do(command) {
+
+    static do(command, env) {
         console.log("exit hit");
         window.close();
-        return {message: "Exit happened but it does nothing :) " + command};
+        return {message: "Exit happened but it does nothing :) "};
     }
 }
 

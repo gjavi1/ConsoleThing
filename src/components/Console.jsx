@@ -28,6 +28,9 @@ class Console extends Component {
 			kill: [],
 			argument: null,
 			lastCommand: ConsoleCommand.Default,
+			consoleState : {
+				"pwd": "/"
+			}
 		};
     }
 	
@@ -214,8 +217,7 @@ class Console extends Component {
 
 		commands.forEach(function(e) {
 			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
-				let env = {"pwd": "/"};
-				out = e.do(command, env);
+				out = e.do(command, this.state.consoleState);
 				commandFound = true;
 			}
 		});

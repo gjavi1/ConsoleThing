@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-
-export default class Ls extends Component {
+export default class Ls {
 	match() {
-		return "Command";
+		return "ls";
 	}
 	
-	do(args) {
-		// Logic goes here
+	do(command, env) {
+		let command = command.split(" ")
+		command.shift();
 	}
 }
