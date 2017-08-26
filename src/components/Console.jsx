@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {ConsolePrompt, ConsoleCommand, SearchDirection} from './console/ConsolePrompt';
 import ConsoleMessage from './console/ConsoleMessage';
-import ErrorMessage from './ErrorMessage'
-import Exit from './commands/Exit.jsx';
-import Clear from './commands/Clear.jsx';
+import Exit from './commands/Exit';
+import Clear from './commands/Clear';
+import Mkdir from './commands/Mkdir';
+import ErrorMessage from './ErrorMessage';
 
-let commands = [Exit, Clear];
+let commands = [Exit, Clear, Mkdir];
 
 class Console extends Component {
     constructor(props) {
@@ -116,7 +117,7 @@ class Console extends Component {
 	}
 
 	componentWillUpdate() {
-		console.log(this.state.log);
+		// console.log(this.state.log);
 	}
 
 	change = () => {
