@@ -314,7 +314,7 @@ class Console extends Component {
 
 		if (command === "clear") {
 			// TODO
-			let prompts = Array.from(document.getElementsByClassName("react-console-prompt-box"));
+			let prompts = Array.from(document.getElementsByClassName("console-prompt-box"));
 			let promptSize = prompts.length - 1;
 
 			prompts.forEach(function(element, index) {
@@ -323,7 +323,7 @@ class Console extends Component {
 				}
 			});
 
-			Array.from(document.getElementsByClassName("react-console-message")).forEach(function(element, id) {
+			Array.from(document.getElementsByClassName("console-message")).forEach(function(element, id) {
 				if (0 !== id) {
 					element.remove();
 				}
@@ -758,11 +758,11 @@ class Console extends Component {
 	}
 	render() {
 		return <div ref={ref => this.child.container = ref}
-				className={`react-console-container ${(this.state.focus ? "react-console-focus" : "react-console-nofocus")}`}
+				className={`console-container ${(this.state.focus ? "console-focus" : "console-nofocus")}`}
 				onClick={this.focus}
 			>
 			{this.props.welcomeMessage?
-				<div className="react-console-message react-console-welcome">
+				<div className="console-message console-welcome">
 					{this.props.welcomeMessage}
 				</div>
 				: null
@@ -787,7 +787,7 @@ class Console extends Component {
 			<div style={{ overflow: "hidden", height: 1, width: 1 }}>
 				<textarea
 					ref={ref => this.child.typer = ref}
-					className="react-console-typer"
+					className="console-typer"
 					autoComplete="off"
 					autoCorrect="off"
 					autoCapitalize="off"

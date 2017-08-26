@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 
 class ConsoleMessage extends Component {
-    constructor(props){
-        super(props);
-    }
 
     render() {
-        return <div className={`react-console-message${(this.props.type? ` react-console-message-${this.props.type}` : ``)}`}>
+        return <div className={`console-message${(this.props.type? ` console-message-${this.props.type}` : ``)}`}>
             {this.props.value.map((val)=>{
                 if(typeof val === 'string') {
                     console.log(val);
