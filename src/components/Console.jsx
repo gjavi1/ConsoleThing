@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
-import ConsolePrompt from './console/ConsolePrompt';
+import {ConsolePrompt, ConsoleCommand, SearchDirection} from './console/ConsolePrompt';
 import ConsoleMessage from './console/ConsoleMessage';
 import Exit from './commands/Exit.jsx';
 import Clear from './commands/Clear.jsx';
 
 let commands = [Exit, Clear];
-
-// Use ConsoleCommand and SearchDirection as ENUM
-export const ConsoleCommand = {
-	Default: 0,
-	Search: 1,
-	Kill: 2
-};
-
-export const SearchDirection = {
-	Reverse: 0,
-	Forward: 1
-};
 
 class Console extends Component {
     constructor(props) {
@@ -129,6 +117,7 @@ class Console extends Component {
 	componentWillUpdate() {
 		console.log(this.state.log);
 	}
+
 	change = () => {
 		let idx = 0;
 		for(;idx < this.state.typer.length && idx < this.child.typer.value.length; idx++) {
@@ -218,12 +207,15 @@ class Console extends Component {
 		let command = this.state.promptText;
 		let history = this.state.history;
 		let log = this.state.log;
+		let out;
+		let commandFound = false;
 
 		commands.forEach(function(e) {
 			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
 				let env = {"pwd": "/"};
 				let args = "";
-				let out = e.do(args, env);
+				out = e.do(args, env);
+				commandFound = true;
 			}
 		});
 
@@ -231,11 +223,21 @@ class Console extends Component {
 			history.push(command);
 		}
 
-		log.push({
-			label: this.state.currLabel,
-			command: command,
-			message: "hello world"
-		});
+		if (commandFound === true) {
+			if (out.appendLog !== false) {
+				log.push({
+					label: this.state.currLabel,
+					command: command,
+					message: out.message
+				});
+			} 
+		} else {
+			log.push({
+				label: this.state.currLabel,
+				command: command,
+				message: <span className="errorMessage">Command Not Found</span>
+			});
+		}
 
 		window.a = log;
 

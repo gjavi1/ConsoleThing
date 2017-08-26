@@ -17,6 +17,7 @@ class Clear {
                 element.remove();
             }
         });
+        return {message: "Cleared", appendLog: false};
     }
 }
 

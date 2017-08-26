@@ -5,6 +5,7 @@ class Exit {
     static do() {
         console.log("exit hit");
         window.close();
+        return {message: "Exit happened but it does nothing :)"};
     }
 }
 
