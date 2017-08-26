@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ConsolePrompt from './console/ConsolePrompt';
 import ConsoleMessage from './console/ConsoleMessage';
 
+// Use ConsoleCommand and SearchDirection as ENUM
 export const ConsoleCommand = {
 	Default: 0,
 	Search: 1,
@@ -72,6 +73,7 @@ class Console extends Component {
 			this.focus();
 		}
 	}
+
 	// Event Handlers
 	focus = () => {
 		if(!window.getSelection().toString()) {
@@ -79,6 +81,7 @@ class Console extends Component {
 			this.setState({ focus: true }, this.scrollToBottom );
 		}
 	}
+
 	blur = () => {
 		this.setState({ focus: false });
     }
@@ -128,6 +131,7 @@ class Console extends Component {
 			// C-s
 			83: this.forwardSearchHistory,
 			// C-d
+			// 86: this.paste,
 			68: this.deleteChar, // TODO EOF
 			75: this.killLine,
 			// C-u
@@ -187,11 +191,16 @@ class Console extends Component {
 				}
 				e.preventDefault();
 			} else if (e.ctrlKey) {
+				console.log(e.keyCode);
+
 				if (e.keyCode in ctrlCodes) {
 					ctrlCodes[e.keyCode]();
 					e.preventDefault();
+				} 
+
+				if (e.keyCode !== 86) {
+					e.preventDefault();
 				}
-				e.preventDefault();
 			} else if (e.keyCode in keyCodes) {
 				keyCodes[e.keyCode]();
 				e.preventDefault();
@@ -222,7 +231,14 @@ class Console extends Component {
 		}
 	}
 	paste = (e) => {
+
+		if (e.keyCode === 86) {
+
+		console.log(e.view.clipboardData);
+		 
 		let insert = e.clipboardData.getData('text');
+	
+		console.log(insert);
 		if(this.state.lastCommand === ConsoleCommand.Search) {
 			this.setState({
 				searchText: this.state.searchInit?insert:this.textInsert(insert, this.state.searchText),
@@ -235,7 +251,9 @@ class Console extends Component {
 				}), this.scrollToBottom
 			);
 		}
-		e.preventDefault();
+		// e.preventDefault();
+		// e.stopPropagation();
+	}
 	}
 	// Commands for Moving
 	beginningOfLine = () => {
@@ -740,7 +758,7 @@ class Console extends Component {
 	}
 	render() {
 		return <div ref={ref => this.child.container = ref}
-				className={"react-console-container " + (this.state.focus?"react-console-focus":"react-console-nofocus")}
+				className={`react-console-container ${(this.state.focus ? "react-console-focus" : "react-console-nofocus")}`}
 				onClick={this.focus}
 			>
 			{this.props.welcomeMessage?
