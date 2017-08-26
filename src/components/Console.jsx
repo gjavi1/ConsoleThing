@@ -34,12 +34,14 @@ class Console extends Component {
 			history: [],
 			historyn: 0,
 			kill: [],
-			killn: 0,
 			argument: null,
 			lastCommand: ConsoleCommand.Default,
 		};
     }
-    
+	
+	componentWillUpdate() {
+		console.log(this.state.log);
+	}
     child = {
 		typer: [] || null,
 		container: [] || null,
@@ -126,32 +128,11 @@ class Console extends Component {
 			83: this.forwardSearchHistory,
 			// C-d
 			// 86: this.paste,
-			68: this.deleteChar, // TODO EOF
+			68: this.deleteChar,
 			75: this.killLine,
-			// C-u
-			85: this.backwardKillLine,
-			// C-c
 			67: this.cancelCommand,
 		};
-		const metaCodes = {
-			// M-f
-			70: this.forwardWord,
-			// M-b
-			66: this.backwardWord,
-			// M-p
-			80: this.nonIncrementalReverseSearchHistory,
-			// M-n
-			78: this.nonIncrementalForwardSearchHistory,
-			68: this.killWord,
-			// M-backspace
-			8: this.backwardKillWord
-		};
-		const metaShiftCodes = { // TODO hook in
-			// M-<
-			188: this.beginningOfHistory,
-			// M->
-			190: this.endOfHistory
-		}
+		
 		if(this.state.acceptInput) {
 			if (e.ctrlKey) {
 				console.log(e.keyCode);
@@ -385,7 +366,7 @@ class Console extends Component {
 			}, this.scrollToBottom);
 		}
 	}
-	// Killing and Yanking
+	// Killing
 	killLine = () => {
 		let kill = this.state.kill;
 		if(this.state.lastCommand === ConsoleCommand.Kill) {
@@ -396,139 +377,11 @@ class Console extends Component {
 		this.setState({
 			promptText: this.state.promptText.substring(0,this.state.point),
 			kill: kill,
-			killn: 0,
-			argument: null,
-			lastCommand: ConsoleCommand.Kill,
-		}, this.scrollToBottom);
-	}
-
-	backwardKillLine = () => {
-		let kill = this.state.kill;
-		if(this.state.lastCommand === ConsoleCommand.Kill) {
-			kill[0] = this.state.promptText.substring(0,this.state.point) + kill[0];
-		} else {
-			kill.unshift(this.state.promptText.substring(0,this.state.point));
-		}
-		this.setState({
-			point: 0,
-			promptText: this.state.promptText.substring(this.state.point),
-			kill: kill,
-			killn: 0,
-			argument: null,
-			lastCommand: ConsoleCommand.Kill,
-		}, this.scrollToBottom);
-	}
-
-	killWholeLine = () => {
-		let kill = this.state.kill;
-		if(this.state.lastCommand === ConsoleCommand.Kill) {
-			kill[0] = this.state.promptText.substring(0,this.state.point)
-				+ kill[0] + this.state.promptText.substring(this.state.point);
-		} else {
-			kill.unshift(this.state.promptText);
-		}
-		this.setState({
-			point: 0,
-			promptText: '',
-			kill: kill,
-			killn: 0,
-			argument: null,
-			lastCommand: ConsoleCommand.Kill,
-		}, this.scrollToBottom);
-	}
-
-	killWord = () => {
-		let kill = this.state.kill;
-		if(this.state.lastCommand === ConsoleCommand.Kill) {
-			kill[0] = kill[0] + this.state.promptText.substring(this.state.point,this.nextWord());
-		} else {
-			kill.unshift(this.state.promptText.substring(this.state.point,this.nextWord()));
-		}
-		this.setState({
-			promptText: this.state.promptText.substring(0,this.state.point)
-				+ this.state.promptText.substring(this.nextWord()),
-			kill: kill,
-			killn: 0,
-			argument: null,
-			lastCommand: ConsoleCommand.Kill,
-		}, this.scrollToBottom);
-	}
-
-	backwardKillWord = () => {
-		let kill = this.state.kill;
-		if(this.state.lastCommand === ConsoleCommand.Kill) {
-			kill[0] = this.state.promptText.substring(this.previousWord(),this.state.point) + kill[0];
-		} else {
-			kill.unshift(this.state.promptText.substring(this.previousWord(),this.state.point));
-		}
-		this.setState({
-			point: this.previousWord(),
-			promptText: this.state.promptText.substring(0,this.previousWord())
-				+ this.state.promptText.substring(this.state.point),
-			kill: kill,
-			killn: 0,
 			argument: null,
 			lastCommand: ConsoleCommand.Kill,
 		}, this.scrollToBottom);
 	}
 	
-	// Numeric Arguments
-	// Completing
-	complete = () => {
-		if(this.props.complete) {
-			// Split text and find current word
-			let words = this.state.promptText.split(" ");
-			let curr = 0;
-			let idx = words[0].length;
-			while(idx < this.state.point && curr + 1 < words.length) {
-				idx += words[++curr].length + 1;
-			}
-
-			let completions = this.props.complete(words, curr, this.state.promptText);
-			if(completions.length === 1) {
-				// Perform completion
-				words[curr] = completions[0];
-				let point = -1;
-				for(let i = 0; i <= curr; i++) {
-					point += words[i].length + 1;
-				}
-				this.setState({
-					point: point,
-					promptText: words.join(" "),
-					argument: null,
-					lastCommand: ConsoleCommand.Default,
-				}, this.scrollToBottom );
-			} else if (completions.length > 1) {
-				// show completions
-				let log = this.state.log;
-				log.push({
-					label: this.state.currLabel,
-					command: this.state.promptText,
-					message: [{
-						type: "completion",
-						value: [completions.join("\t")],
-					}]
-				});
-				this.setState({
-					currLabel: this.nextLabel(),
-					log: log,
-					argument: null,
-					lastCommand: ConsoleCommand.Default,
-				}, this.scrollToBottom );
-			}
-		}
-	}
-	// Keyboard Macros
-	// Miscellaneous
-	prefixMeta = () => {
-		if(this.state.lastCommand === ConsoleCommand.Search) {
-			this.setState({
-				argument: null,
-				lastCommand: ConsoleCommand.Default,
-			});
-		}
-		// TODO Meta prefixed state
-	}
 	cancelCommand = () => {
 		if(this.state.acceptInput) { // Typing command
 			this.child.typer.value = "";
