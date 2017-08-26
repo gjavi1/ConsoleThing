@@ -4,9 +4,10 @@ import ConsoleMessage from './console/ConsoleMessage';
 import Exit from './commands/Exit';
 import Clear from './commands/Clear';
 import Mkdir from './commands/Mkdir';
+import Rmdir from './commands/Rmdir';
 import ErrorMessage from './ErrorMessage';
 
-let commands = [Exit, Clear, Mkdir];
+let commands = [Exit, Clear, Mkdir, Rmdir];
 
 class Console extends Component {
     constructor(props) {

@@ -9,6 +9,18 @@ export default class Utils {
         localStorage.setItem("filesys", JSON.stringify(currentFileSys));
     }
 
+    static removeDirectory(dirName) {
+        let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
+        let dirExist = currentFileSys[dirName] ? true : false;
+
+        if (dirExist) {
+            delete currentFileSys[dirName];
+            localStorage.setItem("filesys", JSON.stringify(currentFileSys));
+        } 
+
+        return dirExist;
+    }
+
     static generateInode() {
         let maxInode = localStorage.getItem("maxInode");
         
