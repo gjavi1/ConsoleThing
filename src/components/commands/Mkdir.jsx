@@ -7,9 +7,7 @@ export default class Mkdir {
 
     static do(command, env) {
         const commands = command.split(" ");
-        let success = true,
-            message = "";
-
+        let message = "";
 
         if (commands.length === 1) {
             message = "mkdir: missing operand";

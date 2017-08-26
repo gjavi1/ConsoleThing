@@ -5,11 +5,12 @@ import ConsoleMessage from './console/ConsoleMessage';
 import Exit from './commands/Exit';
 import Clear from './commands/Clear';
 import Mkdir from './commands/Mkdir';
+import Rmdir from './commands/Rmdir';
 import Echo from './commands/Echo';
-import Lelecho from './commands/Lelecho';
+import Touch from './commands/Touch';
 import ErrorMessage from './ErrorMessage';
-
-let commands = [Exit, Clear, Mkdir, Echo, Lelecho];
+import Lelecho from './commands/Lelecho';
+let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Lelecho, Touch];
 
 class Console extends Component {
     constructor(props) {
