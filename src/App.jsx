@@ -28,7 +28,6 @@ class App extends Component {
     }
     
     render() {
-        window.close();
         return <Console ref={ref => this.child.console = ref}
             handler={this.echo}
             promptLabel={this.promptLabel()}
