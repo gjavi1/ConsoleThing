@@ -218,12 +218,15 @@ class Console extends Component {
 		let command = this.state.promptText;
 		let history = this.state.history;
 		let log = this.state.log;
+		let out;
+		let commandFound = false;
 
 		commands.forEach(function(e) {
 			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
 				let env = {"pwd": "/"};
 				let args = "";
-				let out = e.do(args, env);
+				out = e.do(args, env);
+				commandFound = true;
 			}
 		});
 
@@ -231,11 +234,21 @@ class Console extends Component {
 			history.push(command);
 		}
 
-		log.push({
-			label: this.state.currLabel,
-			command: command,
-			message: "hello world"
-		});
+		if (commandFound === true) {
+			if (out.appendLog !== false) {
+				log.push({
+					label: this.state.currLabel,
+					command: command,
+					message: out.message
+				});
+			} 
+		} else {
+			log.push({
+				label: this.state.currLabel,
+				command: command,
+				message: <span className="errorMessage">Command Not Found</span>
+			});
+		}
 
 		window.a = log;
 
