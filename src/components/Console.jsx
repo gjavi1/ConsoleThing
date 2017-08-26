@@ -6,8 +6,7 @@ import ConsoleMessage from './console/ConsoleMessage';
 export const ConsoleCommand = {
 	Default: 0,
 	Search: 1,
-	Kill: 2,
-	Yank: 3
+	Kill: 2
 };
 
 export const SearchDirection = {
@@ -51,15 +50,8 @@ class Console extends Component {
 		this.setState({
 			log: log,
 		}, this.scrollIfBottom() );
-    }
-    
-    logX = (type, ...messages) => {
-		let log = this.state.log;
-		log[this.state.log.length-1].message.push({type: type, value: messages});
-		this.setState({
-			log: log,
-		}, this.scrollIfBottom() );
 	}
+	
 	return = () => {
 		this.setState({
 			acceptInput: true,
@@ -136,8 +128,6 @@ class Console extends Component {
 			75: this.killLine,
 			// C-u
 			85: this.backwardKillLine,
-			// C-y TODO
-			89: this.yank,
 			// C-c
 			67: this.cancelCommand,
 		};
@@ -150,47 +140,18 @@ class Console extends Component {
 			80: this.nonIncrementalReverseSearchHistory,
 			// M-n
 			78: this.nonIncrementalForwardSearchHistory,
-			// M-.
-			190: this.yankLastArg,
 			68: this.killWord,
 			// M-backspace
-			8: this.backwardKillWord,
-			89: this.yankPop
+			8: this.backwardKillWord
 		};
 		const metaShiftCodes = { // TODO hook in
 			// M-<
 			188: this.beginningOfHistory,
 			// M->
-			190: this.endOfHistory,
-			// M-_
-			189: this.yankLastArg
+			190: this.endOfHistory
 		}
-		const metaCtrlCodes = {
-			// M-C-y
-			89: this.yankNthArg,
-			// M-C-] TODO
-			//221: this.characterSearchBackward,
-			// M-C-j TODO !!!
-			//74: this.viEditingMode,
-		};
 		if(this.state.acceptInput) {
-			if (e.altKey) {
-				if (e.ctrlKey) {
-					if (e.keyCode in metaCtrlCodes) {
-						metaCtrlCodes[e.keyCode]();
-						e.preventDefault();
-					}
-				} else if (e.shiftKey) {
-					if (e.keyCode in metaShiftCodes) {
-						metaShiftCodes[e.keyCode]();
-						e.preventDefault();
-					}
-				} else if (e.keyCode in metaCodes) {
-					metaCodes[e.keyCode]();
-					e.preventDefault();
-				}
-				e.preventDefault();
-			} else if (e.ctrlKey) {
+			if (e.ctrlKey) {
 				console.log(e.keyCode);
 
 				if (e.keyCode in ctrlCodes) {
@@ -231,14 +192,8 @@ class Console extends Component {
 		}
 	}
 	paste = (e) => {
-
-		if (e.keyCode === 86) {
-
-		console.log(e.view.clipboardData);
-		 
 		let insert = e.clipboardData.getData('text');
 	
-		console.log(insert);
 		if(this.state.lastCommand === ConsoleCommand.Search) {
 			this.setState({
 				searchText: this.state.searchInit?insert:this.textInsert(insert, this.state.searchText),
@@ -251,10 +206,8 @@ class Console extends Component {
 				}), this.scrollToBottom
 			);
 		}
-		// e.preventDefault();
-		// e.stopPropagation();
 	}
-	}
+	
 	// Commands for Moving
 	beginningOfLine = () => {
 		this.setState({
@@ -301,8 +254,6 @@ class Console extends Component {
 	// Commands for Manipulating the History
 	acceptLine = () => {
         this.child.typer.value = "";
-        
-
 		let command = this.state.promptText;
 		let history = this.state.history;
 		let log = this.state.log;
@@ -334,11 +285,13 @@ class Console extends Component {
 		if(!history || history[history.length-1] !== command) {
 			history.push(command);
 		}
+
 		log.push({
 			label: this.state.currLabel,
 			command: command,
 			message: []
 		});
+
 		this.setState({
 			acceptInput: false,
 			typer: "",
@@ -461,6 +414,7 @@ class Console extends Component {
 			lastCommand: ConsoleCommand.Kill,
 		}, this.scrollToBottom);
 	}
+
 	backwardKillLine = () => {
 		let kill = this.state.kill;
 		if(this.state.lastCommand === ConsoleCommand.Kill) {
@@ -477,6 +431,7 @@ class Console extends Component {
 			lastCommand: ConsoleCommand.Kill,
 		}, this.scrollToBottom);
 	}
+
 	killWholeLine = () => {
 		let kill = this.state.kill;
 		if(this.state.lastCommand === ConsoleCommand.Kill) {
@@ -494,6 +449,7 @@ class Console extends Component {
 			lastCommand: ConsoleCommand.Kill,
 		}, this.scrollToBottom);
 	}
+
 	killWord = () => {
 		let kill = this.state.kill;
 		if(this.state.lastCommand === ConsoleCommand.Kill) {
@@ -510,6 +466,7 @@ class Console extends Component {
 			lastCommand: ConsoleCommand.Kill,
 		}, this.scrollToBottom);
 	}
+
 	backwardKillWord = () => {
 		let kill = this.state.kill;
 		if(this.state.lastCommand === ConsoleCommand.Kill) {
@@ -527,24 +484,7 @@ class Console extends Component {
 			lastCommand: ConsoleCommand.Kill,
 		}, this.scrollToBottom);
 	}
-	yank = () => {
-		this.setState(Object.assign(
-			this.consoleInsert(this.state.kill[this.state.killn]),{
-				lastCommand: ConsoleCommand.Yank,
-			}), this.scrollToBottom
-		);
-	}
-	yankPop = () => {
-		if(this.state.lastCommand === ConsoleCommand.Yank) {
-			let killn = this.rotateRing(1, this.state.killn, this.state.kill.length);
-			this.setState(Object.assign(
-				this.consoleInsert(this.state.kill[killn], this.state.kill[this.state.killn].length),{
-					killn: killn,
-					lastCommand: ConsoleCommand.Yank,
-				}), this.scrollToBottom
-			);
-		}
-	}
+	
 	// Numeric Arguments
 	// Completing
 	complete = () => {
