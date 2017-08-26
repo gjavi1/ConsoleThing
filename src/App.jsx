@@ -33,6 +33,9 @@ class App extends Component {
         if (currentFileSys) {
             localStorage.setItem('filesys', currentFileSys);
         } else {
+            let baseSystem = {
+                "hello.txt": 1
+            }
             localStorage.setItem('filesys', '{}');            
         }
     }

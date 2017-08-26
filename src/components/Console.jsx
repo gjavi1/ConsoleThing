@@ -214,10 +214,11 @@ class Console extends Component {
 		let log = this.state.log;
 		let out;
 		let commandFound = false;
+		let self = this;
 
 		commands.forEach(function(e) {
 			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
-				out = e.do(command, this.state.consoleState);
+				out = e.do(command, self.state.consoleState);
 				commandFound = true;
 			}
 		});
