@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import Utils from './console/Util'; 
 import {ConsolePrompt, ConsoleCommand, SearchDirection} from './console/ConsolePrompt';
 import ConsoleMessage from './console/ConsoleMessage';
 import Exit from './commands/Exit';
 import Clear from './commands/Clear';
 import Mkdir from './commands/Mkdir';
 import Rmdir from './commands/Rmdir';
+import Echo from './commands/Echo';
+import Touch from './commands/Touch';
 import ErrorMessage from './ErrorMessage';
 
-let commands = [Exit, Clear, Mkdir, Rmdir];
+let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Touch];
 
 class Console extends Component {
     constructor(props) {
@@ -218,7 +221,7 @@ class Console extends Component {
 		let self = this;
 
 		commands.forEach(function(e) {
-			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
+			if (Utils.getFirstWord(command).toLowerCase() == e.match().toLowerCase()) {
 				out = e.do(command, self.state.consoleState);
 				commandFound = true;
 			}

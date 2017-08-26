@@ -1,4 +1,14 @@
 export default class Utils {
+    static createGuid() {
+        function generate() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return generate() + generate() + '-' + generate() + '-' + generate() + '-' +
+            generate() + '-' + generate() + generate() + generate();
+    }
+
     static getFileSys() {
         return JSON.parse(localStorage.getItem("filesys"));
     }
@@ -19,6 +29,21 @@ export default class Utils {
         } 
 
         return dirExist;
+    }
+
+    static createFile(fileName, path, data) {
+        let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
+        
+        if (!path) {
+            currentFileSys[fileName] = this.createGuid();
+        }
+
+        localStorage.setItem("filesys", JSON.stringify(currentFileSys));
+    }
+
+    static getFirstWord(words) {
+        let wordArray = words.split(" ");
+        return wordArray[0];
     }
 
     static generateInode() {
