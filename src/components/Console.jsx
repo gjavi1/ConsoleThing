@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {ConsolePrompt, ConsoleCommand, SearchDirection} from './console/ConsolePrompt';
 import ConsoleMessage from './console/ConsoleMessage';
+import ErrorMessage from './ErrorMessage'
 import Exit from './commands/Exit.jsx';
 import Clear from './commands/Clear.jsx';
 
@@ -235,7 +236,7 @@ class Console extends Component {
 			log.push({
 				label: this.state.currLabel,
 				command: command,
-				message: <span className="errorMessage">Command Not Found</span>
+				message: <ErrorMessage message="Command Not Found" />
 			});
 		}
 
