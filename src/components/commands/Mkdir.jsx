@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import Utils from './Util';
 
-class Mkdir extends Command {
-    match() {
+export default class Mkdir {
+    static match() {
         return "mkdir"; 
     }
 
-    do() {
+    static do() {
        // find what directory you're in 
-       
+       console.log(Utils.getFileSys());
     }
 }

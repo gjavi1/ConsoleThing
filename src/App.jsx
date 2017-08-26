@@ -27,6 +27,16 @@ class App extends Component {
         return this.state.user + " > ";
     }
     
+    componentDidMount() {
+        let currentFileSys = localStorage.getItem("filesys");
+
+        if (currentFileSys) {
+            localStorage.setItem('filesys', currentFileSys);
+        } else {
+            localStorage.setItem('filesys', '{}');            
+        }
+    }
+
     render() {
         return <Console ref={ref => this.child.console = ref}
             handler={this.echo}
