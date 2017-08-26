@@ -38,7 +38,7 @@ class ConsolePrompt extends Component {
 			return [this.props.value,<span ref={ref => this.child.cursor = ref} key="cursor" className="console-cursor">&nbsp;</span>];
 		} else {
 			return [this.props.value.substring(0,this.props.point),
-				<span ref={ref => this.child.cursor = ref} key="cursor" className="console-cursor">{this.props.value.substring(this.props.point,this.props.point+1)}</span>,
+				<span ref={ref => this.child.cursor = ref} key="cursor" className="console-cursor">{this.props.value}</span>,
 				this.props.value.substring(this.props.point+1)];
 		}
     }

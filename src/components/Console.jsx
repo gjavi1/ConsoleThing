@@ -47,9 +47,9 @@ class Console extends Component {
 		focus: [] || null
     };
     
-    log = (...messages) => {
+    log = (messages) => {
 		let log = this.state.log;
-		log[this.state.log.length-1].message.push({value: messages});
+		log[this.state.log.length-1].message = messages;
 		this.setState({
 			log: log,
 		}, this.scrollIfBottom() );
@@ -125,6 +125,10 @@ class Console extends Component {
 				e.preventDefault();
 			}
 		}
+	}
+
+	componentWillUpdate() {
+		console.log(this.state.log);
 	}
 	change = () => {
 		let idx = 0;
@@ -223,14 +227,14 @@ class Console extends Component {
 			}
 		});
 
-		if(!history || history[history.length-1] !== command) {
+		if (!history || history[history.length-1] !== command) {
 			history.push(command);
 		}
 
 		log.push({
 			label: this.state.currLabel,
 			command: command,
-			message: []
+			message: "hello world"
 		});
 
 		this.setState({
@@ -247,7 +251,6 @@ class Console extends Component {
 		}, () => {
 			this.scrollToBottom();
 			if (this.props.handler) {
-
 				if (command === "clear") {
 					this.return();
 				} else {
@@ -362,7 +365,7 @@ class Console extends Component {
 			log.push({
 				label: this.state.currLabel,
 				command: this.state.promptText,
-				message: []
+				message: ""
 			});
 			this.setState({
 				typer: "",
@@ -522,10 +525,9 @@ class Console extends Component {
 			}
 			{this.state.log.map( (val) => {
 				return [
-					<ConsolePrompt label={val.label} value={val.command} />,
-					...val.message.map( (val, idx) => {
-						return <ConsoleMessage key={idx} type={val.type} value={val.value} />;
-					})
+					<ConsolePrompt label={val.label} value={val.command} >,
+						<ConsoleMessage value={val.message} />;
+					</ ConsolePrompt>
 				];
 			})}
 			{this.state.acceptInput?
