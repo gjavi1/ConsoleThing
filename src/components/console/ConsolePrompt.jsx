@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ConsolePrompt extends Component {
+export class ConsolePrompt extends Component {
     child = {
 		cursor: [] || null
     };
@@ -68,4 +68,14 @@ ConsolePrompt.defaultProps = {
     argument: null,
 }
 
-export default ConsolePrompt;
+// Use ConsoleCommand and SearchDirection as ENUM
+export const ConsoleCommand = {
+	Default: 0,
+	Search: 1,
+	Kill: 2
+};
+
+export const SearchDirection = {
+	Reverse: 0,
+	Forward: 1
+};
