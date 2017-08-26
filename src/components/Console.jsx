@@ -10,8 +10,8 @@ import Echo from './commands/Echo';
 import Touch from './commands/Touch';
 import Ls from './commands/Ls';
 import ErrorMessage from './ErrorMessage';
-
-let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Touch, Ls];
+import Lelecho from './commands/Lelecho';
+let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Lelecho, Touch, Ls];
 
 class Console extends Component {
     constructor(props) {
@@ -235,14 +235,14 @@ class Console extends Component {
 		if (commandFound === true) {
 			if (out.appendLog !== false) {
 				log.push({
-					label: this.state.currLabel,
+					label: this.state.consoleState.pwd + this.state.currLabel,
 					command: command,
 					message: out.message
 				});
 			} 
 		} else {
 			log.push({
-				label: this.state.currLabel,
+				label: this.state.consoleState.pwd + this.state.currLabel,
 				command: command,
 				message: <ErrorMessage message="Command Not Found" />
 			});
@@ -376,7 +376,7 @@ class Console extends Component {
 			this.child.typer.value = "";
 			let log = this.state.log;
 			log.push({
-				label: this.state.currLabel,
+				label: this.state.consoleState.pwd + this.state.currLabel,
 				command: this.state.promptText,
 				message: ""
 			});
@@ -546,7 +546,7 @@ class Console extends Component {
 			})}
 			{this.state.acceptInput?
 				<ConsolePrompt
-					label={this.state.currLabel}
+					label={this.state.consoleState.pwd + this.state.currLabel}
 					value={this.state.promptText}
 					point={this.state.point}
 					argument={this.state.argument}
