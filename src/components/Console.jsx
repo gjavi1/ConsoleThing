@@ -222,8 +222,9 @@ class Console extends Component {
 
 		commands.forEach(function(e) {
 			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
-				let env = "hello world";
-				e.do(env);
+				let env = {"pwd": "/"};
+				let args = "";
+				let out = e.do(args, env);
 			}
 		});
 
@@ -236,6 +237,8 @@ class Console extends Component {
 			command: command,
 			message: "hello world"
 		});
+
+		window.a = log;
 
 		this.setState({
 			acceptInput: false,
@@ -525,9 +528,10 @@ class Console extends Component {
 			}
 			{this.state.log.map( (val) => {
 				return [
-					<ConsolePrompt label={val.label} value={val.command} >,
-						<ConsoleMessage value={val.message} />;
-					</ ConsolePrompt>
+					<div>
+						<ConsolePrompt label={val.label} value={val.command} />
+						<ConsoleMessage value={val.message} />
+					</div>
 				];
 			})}
 			{this.state.acceptInput?
