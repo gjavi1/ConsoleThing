@@ -49,7 +49,6 @@ class Console extends Component {
     
     log = (messages) => {
 		let log = this.state.log;
-		log[this.state.log.length-1].message = messages;
 		this.setState({
 			log: log,
 		}, this.scrollIfBottom() );
