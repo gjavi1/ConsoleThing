@@ -4,6 +4,8 @@ import ConsoleMessage from './console/ConsoleMessage';
 import Exit from './commands/Exit.jsx';
 import Clear from './commands/Clear.jsx';
 
+let commands = [Exit, Clear];
+
 // Use ConsoleCommand and SearchDirection as ENUM
 export const ConsoleCommand = {
 	Default: 0,
@@ -213,8 +215,6 @@ class Console extends Component {
 		let command = this.state.promptText;
 		let history = this.state.history;
 		let log = this.state.log;
-		
-		let commands = [Exit, Clear];
 
 		commands.forEach(function(e) {
 			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
