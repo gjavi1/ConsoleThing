@@ -7,3 +7,9 @@ body {
 .errorMessage {
     color: red;
 }
+
+.console-container {
+    margin: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+}
