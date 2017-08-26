@@ -8,9 +8,10 @@ import Mkdir from './commands/Mkdir';
 import Rmdir from './commands/Rmdir';
 import Echo from './commands/Echo';
 import Touch from './commands/Touch';
+import Ls from './commands/Ls';
 import ErrorMessage from './ErrorMessage';
 
-let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Touch];
+let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Touch, Ls];
 
 class Console extends Component {
     constructor(props) {
