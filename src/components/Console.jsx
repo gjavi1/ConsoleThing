@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Utils from './console/Util'; 
 import {ConsolePrompt, ConsoleCommand, SearchDirection} from './console/ConsolePrompt';
 import ConsoleMessage from './console/ConsoleMessage';
 import Exit from './commands/Exit';
@@ -218,7 +219,7 @@ class Console extends Component {
 		let self = this;
 
 		commands.forEach(function(e) {
-			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
+			if (Utils.getFirstWord(command).toLowerCase() == e.match().toLowerCase()) {
 				out = e.do(command, self.state.consoleState);
 				commandFound = true;
 			}

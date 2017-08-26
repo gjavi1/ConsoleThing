@@ -9,6 +9,11 @@ export default class Utils {
         localStorage.setItem("filesys", JSON.stringify(currentFileSys));
     }
 
+    static getFirstWord(words) {
+        let wordArray = words.split(" ");
+        return wordArray[0];
+    }
+
     static generateInode() {
         let maxInode = localStorage.getItem("maxInode");
         
