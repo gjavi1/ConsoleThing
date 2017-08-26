@@ -214,8 +214,7 @@ class Console extends Component {
 		commands.forEach(function(e) {
 			if (command.toLowerCase().startsWith(e.match().toLowerCase())) {
 				let env = {"pwd": "/"};
-				let args = "";
-				out = e.do(args, env);
+				out = e.do(command, env);
 				commandFound = true;
 			}
 		});
