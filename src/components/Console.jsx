@@ -8,10 +8,11 @@ import Mkdir from './commands/Mkdir';
 import Rmdir from './commands/Rmdir';
 import Echo from './commands/Echo';
 import Touch from './commands/Touch';
+import Nano from './commands/Nano';
 import Ls from './commands/Ls';
 import ErrorMessage from './ErrorMessage';
 import Lelecho from './commands/Lelecho';
-let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Lelecho, Touch, Ls];
+let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Lelecho, Touch, Ls, Nano];
 
 class Console extends Component {
     constructor(props) {
@@ -580,7 +581,7 @@ class Console extends Component {
 }
 
 Console.defaultProps = {
-    autofocus: true,
+    autofocus: false,
     promptLabel: '> ',
     continue: function() { return false; },
     cancel: function() {}
