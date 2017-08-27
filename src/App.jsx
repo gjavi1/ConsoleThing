@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import './App.css';
 
-import Console from './components/Console'
+import Console from './components/Console';
+import Utils from './components/console/Util';
 import TextEditor from "./components/console/TextEditor";
 class App extends Component {
     constructor(props) {
@@ -57,7 +58,12 @@ class App extends Component {
             }
             if (isEscape) {
                 if (typeof window.ConsoleEditor !== "undefined") {
+                    let fileData = window.ConsoleEditor.getValue();
+
+                    Utils.createFileData(window.ConsoleEditorFileId, fileData);
+
                     window.ConsoleEditor = undefined;
+                    window.ConsoleEditorFileId = undefined;
                     document.getElementById('nano-text-editor').remove();
                 }
             }

@@ -1,4 +1,5 @@
 import Utils from '../console/Util';
+import React, {Component} from 'react';
 
 export default class Cat {
     static match() {
@@ -10,14 +11,16 @@ export default class Cat {
         let message = "";
 
         if (commands.length === 1) {
-            message = "touch: missing file operand";
+            message = "Cat: missing file operand";
         }
 
         commands.shift();
-        
-        commands.forEach((val) => {
-            Utils.createFile(val.trim());
-        });
+        let fileId = Utils.checkFileExist(commands[0]);
+        if (fileId) {
+            message = <pre>{Utils.getFileData(fileId)}</pre>;
+        } else {
+            message = `cat: ${commands[0]}: No such file or directory`;
+        }
         
         return {message: message}
     }

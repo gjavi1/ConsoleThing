@@ -33,6 +33,19 @@ export default class Utils {
         return currentFileSys[dirName] ? true : false;
     }
 
+    static checkFileExist(dirName) {
+        let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));        
+        let dirs = this.currentDir.split("/");
+
+        dirs.forEach( val => {
+            if (val) {
+                currentFileSys = currentFileSys[val];
+            }
+        });
+
+        return currentFileSys[dirName];
+    }
+
     static navigateDir(dirName) {
         let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
         let oldPath = this.currentDir;
@@ -153,13 +166,15 @@ export default class Utils {
     }
 
     static createFileData(id, data) {
-        let currentFiles = localStorage.getItem("fileitems");
+        let currentFiles = JSON.parse(localStorage.getItem("fileitems"));
         
-        return currentFiles[id] = data;
+        currentFiles[id] = data;
+
+        localStorage.setItem("fileitems", JSON.stringify(currentFiles));
     }
     
     static getFileData(id) {
-        let currentFiles = localStorage.getItem("fileitems");
+        let currentFiles = JSON.parse(localStorage.getItem("fileitems"));
         
         return currentFiles[id];
     }
