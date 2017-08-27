@@ -4,6 +4,7 @@ import {ConsolePrompt, ConsoleCommand, SearchDirection} from './console/ConsoleP
 import ConsoleMessage from './console/ConsoleMessage';
 import {Commands} from "./commands/index";
 import ErrorMessage from './ErrorMessage';
+import Util from "./console/Util";
 
 class Console extends Component {
     constructor(props) {
@@ -226,12 +227,40 @@ class Console extends Component {
 
 		if (commandFound === true) {
 			if (out.appendLog !== false) {
-				log.push({
-					label: this.state.consoleState.pwd + this.state.currLabel,
-					command: command,
-					message: out.message
-				});
+
+				if (out.cdStatus) {
+					console.log("here");
+
+					let newPath = this.state.consoleState.pwd + 
+						(out.newPath[out.newPath.length - 1] === "/" ? out.newPath : `${out.newPath}/`);
+
+					if (out.newPath === "/") {
+						newPath = "/";
+					}
+					
+					self.setState({
+						consoleState: {
+							pwd: newPath
+						}
+					});
+				
+					window.cdstate = this.state;
+					log.push({
+						label: this.state.consoleState.pwd + this.state.currLabel,
+						command: command,
+						message: out.message
+					});
+				} else {
+					log.push({
+						label: this.state.consoleState.pwd + this.state.currLabel,
+						command: command,
+						message: out.message
+					});
+				}
 			} 
+
+			console.log(out);
+			
 		} else {
 			log.push({
 				label: this.state.consoleState.pwd + this.state.currLabel,

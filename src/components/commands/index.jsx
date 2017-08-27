@@ -9,6 +9,7 @@ import Echo from './Echo';
 import Node from './Node';
 import Kerr from './Kerr';
 import Npm from './Npm';
+import Pwd from './Pwd';
 import Cat from './Cat';
 import Ls from './Ls';
 import Cd from './Cd';
@@ -29,6 +30,7 @@ export const Commands = [
     Cat,
     Node,
     Npm,
-    Kerr
+    Kerr,
+    Pwd
 ];
 

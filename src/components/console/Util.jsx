@@ -1,4 +1,7 @@
 export default class Utils {
+
+    static currentDir = "/";
+
     static createGuid() {
         function generate() {
             return Math.floor((1 + Math.random()) * 0x10000)
@@ -13,9 +16,68 @@ export default class Utils {
         return JSON.parse(localStorage.getItem("filesys"));
     }
     
-    static createDirectory(dirName) {
+    static checkDirExist(dirName) {
+        let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));        
+        let dirs = this.currentDir.split("/");
+
+        dirs.forEach( val => {
+            if (val) {
+                currentFileSys = currentFileSys[val];
+            }
+        });
+
+        if (this.currentDir === "/" && dirName === "/") {
+            return true;
+        }
+
+        return currentFileSys[dirName] ? true : false;
+    }
+
+    static navigateDir(dirName) {
         let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
-        currentFileSys[dirName] = {};
+        let success = true;
+
+        if (dirName === "/" ) {
+            this.currentDir = "/";
+        } else {
+            // TODO
+            // catch for .. and .
+            if (this.checkDirExist(dirName)) {
+                this.currentDir = `${this.currentDir}${dirName}/`;
+            } else {
+                success = false;
+            }
+        }
+        
+        return success;
+    }
+
+    static createDirectory(dirName) {
+        
+        if (dirName === "/") {
+            return;
+        }
+
+        let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
+        let dirs = this.currentDir.split("/");
+        let pathSys;     
+
+        dirs.forEach( val => {
+            if (typeof pathSys === "undefined") {
+                pathSys = currentFileSys;
+            }
+
+            if (val) {
+                pathSys = pathSys[val];
+            }
+        });
+
+        if (typeof pathSys === "undefined") {
+            currentFileSys[dirName] = {};
+        } else {
+            pathSys[dirName] = {};
+        }
+    
         localStorage.setItem("filesys", JSON.stringify(currentFileSys));
     }
 
@@ -33,9 +95,23 @@ export default class Utils {
 
     static createFile(fileName, path, data) {
         let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
-        
-        if (!path) {
+        let dirs = this.currentDir.split("/");
+        let pathSys;     
+
+        dirs.forEach( val => {
+            if (typeof pathSys === "undefined") {
+                pathSys = currentFileSys;
+            }
+
+            if (val) {
+                pathSys = pathSys[val];
+            }
+        });
+
+        if (typeof pathSys === "undefined") {
             currentFileSys[fileName] = this.createGuid();
+        } else {
+            pathSys[fileName] = this.createGuid();
         }
 
         localStorage.setItem("filesys", JSON.stringify(currentFileSys));
@@ -43,12 +119,19 @@ export default class Utils {
 
     static getItemsInDir(path, data) {
         let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
-        
+        let dirs = this.currentDir.split("/");
+
+        console.log(dirs);
+        dirs.forEach( val => {
+            if (val) {
+                currentFileSys = currentFileSys[val];
+            }
+        });
+
         let result = [];
         if (!path) {
             let preResult = Object.keys(currentFileSys);
 
-            // console.log()
             preResult.forEach((val, key) => {
                 result.push({
                     name: val,
