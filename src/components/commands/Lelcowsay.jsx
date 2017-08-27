@@ -23,4 +23,7 @@ export default class Lelcowsay {
             </span>
         };
     }
+    static help() {
+        return <span>It is a cow that says things, nuff said   ...in rainbow color.</span>
+    }
 }

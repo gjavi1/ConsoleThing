@@ -17,6 +17,7 @@ import Rm from './Rm';
 import Help from './Help';
 import Cowsay from './Cowsay';
 import Lelcowsay from './Lelcowsay';
+import Fortune from './Fortune';
 
 export const Commands = [
     Exit, 
@@ -38,6 +39,7 @@ export const Commands = [
     Pwd,
     Help,
     Cowsay,
-    Lelcowsay
+    Lelcowsay,
+    Fortune
 ];
 
