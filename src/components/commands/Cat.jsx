@@ -21,7 +21,7 @@ export default class Cat {
         } else {
             message = `cat: ${commands[0]}: No such file or directory`;
         }
-        
+        window.ConsoleEditorFileId = fileId;
         return {message: message}
     }
 }

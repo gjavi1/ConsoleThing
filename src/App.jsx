@@ -60,10 +60,11 @@ class App extends Component {
                 if (typeof window.ConsoleEditor !== "undefined") {
                     let fileData = window.ConsoleEditor.getValue();
 
+                    // console.log(window.ConsoleEditorFileId);
                     Utils.createFileData(window.ConsoleEditorFileId, fileData);
 
                     window.ConsoleEditor = undefined;
-                    window.ConsoleEditorFileId = undefined;
+                    // window.ConsoleEditorFileId = undefined;
                     document.getElementById('nano-text-editor').remove();
                 }
             }

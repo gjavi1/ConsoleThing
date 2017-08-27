@@ -26,7 +26,7 @@ export default class Nano {
                 console.log(fileId);
                 fileContent = Utils.getFileData(fileId) ?  Utils.getFileData(fileId) : "";
             } else {
-                Utils.createFile(commands[0].trim());
+                fileId = Utils.createFile(commands[0].trim());
             }
 
             window.ConsoleEditorFileId = fileId;
