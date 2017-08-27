@@ -13,6 +13,7 @@ import Cat from './Cat';
 import Ls from './Ls';
 import Cd from './Cd';
 import Rm from './Rm';
+import Cowsay from './Cowsay';
 
 export const Commands = [
     Exit, 
@@ -29,6 +30,7 @@ export const Commands = [
     Cat,
     Node,
     Npm,
-    Kerr
+    Kerr,
+    Cowsay
 ];
 
