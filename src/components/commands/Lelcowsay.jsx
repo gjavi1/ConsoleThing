@@ -1,20 +1,19 @@
 import React from 'react';
 import Echo from './Echo';
 
-export default class Cowsay {
+export default class Lelcowsay {
     static match() {
-        return "Cowsay";
+        return "lelcowsay";
     }
-
     static do(command) {
         let extractedSay = Echo.do(command).message;
         return {message: 
             <span> 
-            <div >
+            <div className='lelMessage'>
                 {extractedSay}
             </div>
             
-            <pre>
+            <pre className='lelMessage'>
 \   ^__^<br/>
 {' '}\  (oo)\_______<br/>
 {'    '}(__)\       )\<br/>
@@ -23,9 +22,5 @@ export default class Cowsay {
             </pre>
             </span>
         };
-    }
-
-    static help(){
-        return <span>It is a cow that says things, nuff said.</span>
     }
 }

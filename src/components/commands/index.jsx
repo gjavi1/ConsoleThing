@@ -16,6 +16,7 @@ import Cd from './Cd';
 import Rm from './Rm';
 import Help from './Help';
 import Cowsay from './Cowsay';
+import Lelcowsay from './Lelcowsay';
 
 export const Commands = [
     Exit, 
@@ -33,8 +34,10 @@ export const Commands = [
     Node,
     Npm,
     Kerr,
+    Cowsay,
     Pwd,
     Help,
-    Cowsay
+    Cowsay,
+    Lelcowsay
 ];
 

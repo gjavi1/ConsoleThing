@@ -34,13 +34,6 @@ body {
     background-clip: text;
 }
 
-
-.cowMessage{
-    border: 1px; 
-    border-style: solid;
-    /* word-wrap: break-word; */
-}
-
 pre{
     margin: 0;
 }
