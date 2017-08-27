@@ -11,13 +11,13 @@ export default class Rm {
         let message = "";
 
         if (commands.length === 1) {
-            message = "touch: missing file operand";
+            message = "rm: missing operand";
         }
 
         commands.shift();
         
         commands.forEach((val) => {
-            Utils.createFile(val.trim());
+            Utils.removeDirectory(val.trim());
         });
         
         return {message: message}
