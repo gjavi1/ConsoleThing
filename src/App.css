@@ -37,6 +37,15 @@ html, body, #root {
     color: #0066ff;
 }
 
+#nano-text-editor {
+    position: absolute;
+    height: 100%;
+    background: aliceblue;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
 @-webkit-keyframes flash {
 	0% { opacity: 1; } 
 	50% { opacity: .1; } 
