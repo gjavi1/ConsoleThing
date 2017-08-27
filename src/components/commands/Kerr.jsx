@@ -1,4 +1,5 @@
 import Utils from '../console/Util';
+import React from 'react';
 
 export default class Kerr {
     static match() {
@@ -6,20 +7,9 @@ export default class Kerr {
     }
 
     static do(command, env) {
-        let commands = command.split(" ");
-        let message = "";
-
-        if (commands.length === 1) {
-            message = "touch: missing file operand";
-        }
-
-        commands.shift();
+        window.open("https://jack775544.github.io/ConsoleThing/",'name','height=200,width=150');
         
-        commands.forEach((val) => {
-            Utils.createFile(val.trim());
-        });
-        
-        return {message: message}
+        return {message: ""}
     }
 
     static help(){

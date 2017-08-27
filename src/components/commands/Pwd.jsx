@@ -1,4 +1,5 @@
 import Utils from '../console/Util';
+import React from 'react';
 
 export default class Pwd {
     static match() {
