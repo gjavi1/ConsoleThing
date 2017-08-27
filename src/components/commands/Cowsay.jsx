@@ -10,7 +10,7 @@ export default class Cowsay {
         let extractedSay = Echo.do(command).message;
         return {message: 
             <span> 
-            <div className='cowMessage'>
+            <div >
                 {extractedSay}
             </div>
             
