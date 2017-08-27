@@ -7,18 +7,43 @@ export default class Cd {
 
     static do(command, env) {
         let commands = command.split(" ");
+        let success;
         let message = "";
-
-        if (commands.length === 1) {
-            message = "touch: missing file operand";
-        }
+        let output = {};
 
         commands.shift();
         
-        commands.forEach((val) => {
-            Utils.createFile(val.trim());
-        });
-        
-        return {message: message}
+        if (commands.length > 1) {
+            output = {message: "cd: too many arguments"};
+        } else if (!commands.length) {
+            Utils.navigateDir("/");
+            output = {message: message, cdStatus: true, newPath: "/"};
+        } else {
+            let path = commands.join(" ");
+            commands = path.split("/");
+    
+            commands.forEach((val) => {
+                console.log("cd");
+                console.log(val.trim());
+                let status = Utils.navigateDir(val.trim());
+                if (typeof success === 'undefined') {
+                    success = status;
+                    
+                    if (!status) {
+                        message = `cd: ${path}: No such file or directory`;
+                    }
+                } 
+                
+                if (success) {
+                    success = status;
+                } else {
+                    message = `cd: ${path}: No such file or directory`;
+                }         
+            });
+
+            output = {message: message, cdStatus: success, newPath: path};
+        }
+    
+        return output;
     }
 }

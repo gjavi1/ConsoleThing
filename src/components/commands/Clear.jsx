@@ -1,3 +1,5 @@
+import React from 'react';
+
 class Clear {
     static match() {
         return "clear";
@@ -18,6 +20,9 @@ class Clear {
             }
         });
         return {message: "Cleared", appendLog: false};
+    }
+    static help() {
+        return <span>clear - Clears the terminal</span>
     }
 }
 

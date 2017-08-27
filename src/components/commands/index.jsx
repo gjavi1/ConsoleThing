@@ -9,10 +9,12 @@ import Echo from './Echo';
 import Node from './Node';
 import Kerr from './Kerr';
 import Npm from './Npm';
+import Pwd from './Pwd';
 import Cat from './Cat';
 import Ls from './Ls';
 import Cd from './Cd';
 import Rm from './Rm';
+import Help from './Help';
 import Cowsay from './Cowsay';
 import Lelcowsay from './Lelcowsay';
 
@@ -32,6 +34,9 @@ export const Commands = [
     Node,
     Npm,
     Kerr,
+    Cowsay,
+    Pwd,
+    Help,
     Cowsay,
     Lelcowsay
 ];
