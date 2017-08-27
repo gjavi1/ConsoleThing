@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Console from './components/Console'
-
+import TextEditor from "./components/console/TextEditor";
 class App extends Component {
     constructor(props) {
         super(props);
@@ -41,12 +41,14 @@ class App extends Component {
     }
 
     render() {
-        return <Console ref={ref => this.child.console = ref}
-            handler={this.echo}
-            promptLabel={this.promptLabel()}
-            welcomeMessage={"ConsoleThingy"}
-            autofocus={true}
-        />;
+        return <TextEditor />
+        
+        // <Console ref={ref => this.child.console = ref}
+        //     handler={this.echo}
+        //     promptLabel={this.promptLabel()}
+        //     welcomeMessage={"ConsoleThingy"}
+        //     autofocus={true}
+        // />;
     }
 }
 

@@ -2,7 +2,7 @@ import Utils from '../console/Util';
 import React, {Component} from 'react';
 import MonacoEditor from 'react-monaco-editor';
 
-class NanoEditor extends Component {
+export default class TextEditor extends Component {
     
     constructor(props) {
         super(props);
@@ -25,12 +25,6 @@ class NanoEditor extends Component {
         const options = {
             selectOnLineNumbers: true
         };
-        const requireConfig = {
-            url: 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.1/require.min.js',
-            paths: {
-                'vs': 'https://unpkg.com/monaco-editor@0.7.0/min/vs'
-            }
-        };
         return <div id={"nano-text-editor"}> 
                 <MonacoEditor
                 width="800"
@@ -41,7 +35,6 @@ class NanoEditor extends Component {
                 options={options}
                 onChange={this.onChange}
                 editorDidMount={this.editorDidMount}
-                requireConfig={requireConfig}
             />
         </div>
     }
