@@ -7,13 +7,20 @@ export default class TextEditor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            code: '// type your code...',
+            code: this.props.content || '',
         }
+    }
+
+    componentDidMount() {
+        
     }
 
     editorDidMount = (editor, monaco) => {
         console.log('editorDidMount', editor);
         editor.focus();
+        console.log(editor.getValue());
+
+        window.ConsoleEditor = editor;
     }
 
     onChange = (newValue, e) => {
@@ -27,9 +34,9 @@ export default class TextEditor extends Component {
         };
         return <div id={"nano-text-editor"}> 
                 <MonacoEditor
-                width="800"
-                height="600"
-                language="javascript"
+                width="inherit"
+                height="100%"
+                language="xml"
                 theme="vs-dark"
                 value={code}
                 options={options}

@@ -35,10 +35,10 @@ export class ConsolePrompt extends Component {
 		if(this.props.point < 0) {
 			return [this.props.value];
 		} else if (this.props.point === this.props.value.length) {
-			return [this.props.value,<span ref={ref => this.child.cursor = ref} key="cursor" className="console-cursor">&nbsp;</span>];
+			return [this.props.value,<span ref={ref => this.child.cursor = ref} key="cursor" className="console-cursor" id="console-cursor">&nbsp;</span>];
 		} else {
 			return [this.props.value.substring(0,this.props.point),
-				<span ref={ref => this.child.cursor = ref} key="cursor" className="console-cursor">{this.props.value}</span>,
+				<span ref={ref => this.child.cursor = ref} key="cursor" className="console-cursor" id="console-cursor">{this.props.value}</span>,
 				this.props.value.substring(this.props.point+1)];
 		}
     }

@@ -129,7 +129,7 @@ export default class Utils {
         let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
         let dirs = this.currentDir.split("/");
         let pathSys;     
-
+        let id =  this.createGuid();
         dirs.forEach( val => {
             if (typeof pathSys === "undefined") {
                 pathSys = currentFileSys;
@@ -141,12 +141,27 @@ export default class Utils {
         });
 
         if (typeof pathSys === "undefined") {
-            currentFileSys[fileName] = this.createGuid();
+            currentFileSys[fileName] = id;
         } else {
-            pathSys[fileName] = this.createGuid();
-        }
 
+            pathSys[fileName] = id;
+        }
+        
         localStorage.setItem("filesys", JSON.stringify(currentFileSys));
+
+        return id;
+    }
+
+    static createFileData(id, data) {
+        let currentFiles = localStorage.getItem("fileitems");
+        
+        return currentFiles[id] = data;
+    }
+    
+    static getFileData(id) {
+        let currentFiles = localStorage.getItem("fileitems");
+        
+        return currentFiles[id];
     }
 
     static getItemsInDir(path, data) {

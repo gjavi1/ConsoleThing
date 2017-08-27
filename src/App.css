@@ -9,7 +9,6 @@ html, body, #root {
 
 .console-container {
     background: #353535;
-    position: absolute;
     height: calc(100% - 40px);
     width: calc(100% - 40px);
     padding: 10px;
@@ -38,6 +37,7 @@ html, body, #root {
 }
 
 #nano-text-editor {
+    z-index: 1000000;    
     position: absolute;
     height: 100%;
     background: aliceblue;
