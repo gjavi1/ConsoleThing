@@ -1,4 +1,5 @@
 import Utils from '../console/Util';
+import React from 'react';
 
 export default class Rmdir {
     static match() {
@@ -39,5 +40,9 @@ export default class Rmdir {
             message += `: No such file or directory`;
         }
         return {message: message};
+    }
+
+    static help() {
+        return <span>rmdir &lt;FOLDERNAME&gt; - Deletes a folder</span>
     }
 }

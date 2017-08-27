@@ -1,4 +1,5 @@
 import Utils from '../console/Util';
+import React from 'react';
 
 export default class Mkdir {
     static match() {
@@ -21,5 +22,9 @@ export default class Mkdir {
             }
         });
         return {message: message};
+    }
+
+    static help() {
+        return <span>mkdir &lt;FOLDERNAME&gt; - Creates a folder with the name FOLDERNAME</span>
     }
 }

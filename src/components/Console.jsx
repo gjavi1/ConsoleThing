@@ -9,9 +9,10 @@ import Rmdir from './commands/Rmdir';
 import Echo from './commands/Echo';
 import Touch from './commands/Touch';
 import Ls from './commands/Ls';
+import Help from './commands/Help'
 import ErrorMessage from './ErrorMessage';
 import Lelecho from './commands/Lelecho';
-let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Lelecho, Touch, Ls];
+let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Lelecho, Touch, Ls, Help];
 
 class Console extends Component {
     constructor(props) {
@@ -34,7 +35,8 @@ class Console extends Component {
 			argument: null,
 			lastCommand: ConsoleCommand.Default,
 			consoleState : {
-				"pwd": "/"
+				"pwd": "/",
+				commands: commands
 			}
 		};
     }
