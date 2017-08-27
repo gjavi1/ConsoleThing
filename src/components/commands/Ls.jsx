@@ -8,13 +8,7 @@ export default class Ls {
 	
 	static do(command, env) {
 		let commands = command.split(" ");
-		console.log(Utils.getItemsInDir());
-
 		const items = Utils.getItemsInDir();
-
-		
-
-
 		return {message: 
 				<span> { 
 					[items.map((val) => {

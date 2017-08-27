@@ -35,10 +35,19 @@ export default class Utils {
 
     static navigateDir(dirName) {
         let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
+        let oldPath = this.currentDir;
         let success = true;
 
         if (dirName === "/" ) {
             this.currentDir = "/";
+        } else if (dirName === ".." && this.currentDir !== "/") {
+            console.log(this.currentDir);
+            let dirs =  this.currentDir.split("/");
+            dirs.pop();
+            dirs.pop();
+            this.currentDir = dirs.join("/") + "/";
+        } else if (dirName === ".") {
+            // do nothing
         } else {
             // TODO
             // catch for .. and .

@@ -6,7 +6,7 @@ export default class Cd {
     }
 
     static do(command, env) {
-        let commands = command.split(" ");
+        let commands = command.trim().split(" ");
         let success;
         let message = "";
         let output = {};
@@ -20,17 +20,22 @@ export default class Cd {
             output = {message: message, cdStatus: true, newPath: "/"};
         } else {
             let path = commands.join(" ");
+            let originalPath = Utils.currentDir;
             commands = path.split("/");
-    
+            
             commands.forEach((val) => {
-                console.log("cd");
-                console.log(val.trim());
+
+                if (!val) {
+                    return;
+                }
+                
                 let status = Utils.navigateDir(val.trim());
                 if (typeof success === 'undefined') {
                     success = status;
                     
                     if (!status) {
                         message = `cd: ${path}: No such file or directory`;
+                        Utils.currentDir = originalPath;
                     }
                 } 
                 
@@ -38,10 +43,10 @@ export default class Cd {
                     success = status;
                 } else {
                     message = `cd: ${path}: No such file or directory`;
+                    Utils.currentDir = originalPath;
                 }         
             });
-
-            output = {message: message, cdStatus: success, newPath: path};
+            output = {message: message, cdStatus: success, newPath: Utils.currentDir};
         }
     
         return output;
