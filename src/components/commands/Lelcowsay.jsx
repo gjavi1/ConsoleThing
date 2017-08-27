@@ -1,26 +1,18 @@
 import React from 'react';
-import Echo from './Echo';
+import Cowsay from './Cowsay';
 
 export default class Lelcowsay {
     static match() {
         return "lelcowsay";
     }
     static do(command) {
-        let extractedSay = Echo.do(command).message;
         return {message: 
-            <span> 
             <div className='lelMessage'>
-                {extractedSay}
+                {Cowsay.do(command).message} 
             </div>
-            
-            <pre className='lelMessage'>
-\   ^__^<br/>
-{' '}\  (oo)\_______<br/>
-{'    '}(__)\       )\<br/>
-{'        '}||----w |<br/>
-{'        '}||     ||<br/>   
-            </pre>
-            </span>
         };
+    }
+    static help() {
+        return <span>It is a cow that says things, nuff said   ...in rainbow color.</span>
     }
 }
