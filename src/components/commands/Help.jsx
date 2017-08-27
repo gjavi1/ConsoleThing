@@ -11,7 +11,10 @@ export default class Help {
         let cmdList = env.commands;
         switch (args.length) {
             case 1:
-                return {message: "Use `help COMMANDNAME` to get help on a specific comand"};
+                let msg = <div>
+                    {cmdList.map((e) => <p>{e.match()} - {e.help()}</p>)}
+                </div>
+                return {message: msg};
             case 2:
                 let cmdIdx = cmdList.map((e) => e.match().toLowerCase()).indexOf(args[1].toLowerCase())
                 if (cmdIdx != -1) {
