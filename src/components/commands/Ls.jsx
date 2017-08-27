@@ -25,4 +25,8 @@ export default class Ls {
 				}</span>
 			};
 	}
+
+	static help() {
+		return <span>ls - Outputs the contents of the current folder</span>;
+	}
 }

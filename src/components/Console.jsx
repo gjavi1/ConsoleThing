@@ -27,7 +27,8 @@ class Console extends Component {
 			argument: null,
 			lastCommand: ConsoleCommand.Default,
 			consoleState : {
-				"pwd": "/"
+				"pwd": "/",
+				commands: Commands
 			}
 		};
     }

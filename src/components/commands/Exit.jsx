@@ -1,3 +1,5 @@
+import React from 'react';
+
 class Exit {
     static match() {
         return "exit";
@@ -7,6 +9,10 @@ class Exit {
         console.log("exit hit");
         window.close();
         return {message: "Exit happened but it does nothing :) "};
+    }
+
+    static help() {
+        return <span>Literally does nothing</span>
     }
 }
 

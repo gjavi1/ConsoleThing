@@ -83,10 +83,33 @@ export default class Utils {
 
     static removeDirectory(dirName) {
         let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
-        let dirExist = currentFileSys[dirName] ? true : false;
+        let dirs = this.currentDir.split("/");
+        let pathSys;     
+
+        dirs.forEach( val => {
+            if (typeof pathSys === "undefined") {
+                pathSys = currentFileSys;
+            }
+
+            if (val) {
+                pathSys = pathSys[val];
+            }
+        });
+
+        let dirExist;
+
+        if (typeof pathSys === "undefined") {
+            dirExist = currentFileSys[dirName] ? true : false;
+        } else {
+            dirExist = pathSys[dirName] ? true : false;
+        }
 
         if (dirExist) {
-            delete currentFileSys[dirName];
+            if (typeof pathSys === "undefined") {
+                delete currentFileSys[dirName];
+            } else {
+                delete pathSys[dirName];
+            }
             localStorage.setItem("filesys", JSON.stringify(currentFileSys));
         } 
 
