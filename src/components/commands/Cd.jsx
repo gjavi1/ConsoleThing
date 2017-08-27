@@ -51,4 +51,8 @@ export default class Cd {
     
         return output;
     }
+
+    static help() {
+        return <span>Changes directory</span>
+    }
 }

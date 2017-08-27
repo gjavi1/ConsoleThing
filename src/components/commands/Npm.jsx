@@ -21,4 +21,8 @@ export default class Npm {
         
         return {message: message}
     }
+
+    static help() {
+        return <span>Thing</span>
+    }
 }

@@ -21,4 +21,8 @@ export default class Rm {
         
         return {message: message}
     }
+
+    static help() {
+        return <span>Deletes things</span>
+    }
 }

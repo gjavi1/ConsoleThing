@@ -8,4 +8,8 @@ export default class Pwd {
     static do(command, env) {
         return {message: env.pwd}
     }
+
+    static help() {
+        return <span>Does what it says on the tin</span>
+    }
 }

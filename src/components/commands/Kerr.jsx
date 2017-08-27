@@ -21,4 +21,8 @@ export default class Kerr {
         
         return {message: message}
     }
+
+    static help(){
+        return <span>It does a thing</span>;
+    }
 }

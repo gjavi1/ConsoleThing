@@ -24,4 +24,8 @@ export default class Cat {
         window.ConsoleEditorFileId = fileId;
         return {message: message}
     }
+
+    static help(){
+        return <span>Outputs a file</span>;
+    }
 }

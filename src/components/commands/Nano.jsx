@@ -34,4 +34,8 @@ export default class Nano {
 
         return {message: <TextEditor content={fileContent} />}
     }
+
+    static help() {
+        return <span>Your favourite text editor</span>
+    }
 }
