@@ -10,6 +10,7 @@ export default class Nano {
     static do(command, env) {
         let commands = command.split(" ");
         let message = "";
+        let fileContent = "";
 
         if (commands.length === 1) {
             return {message: "nano: missing file operand"};
@@ -20,9 +21,17 @@ export default class Nano {
         if (commands.length > 1) {
             message = "nano: too manny file operand";
         } else {
-            Utils.createFile(commands[0].trim());
+            let fileId = Utils.checkFileExist(commands[0].trim());
+            if (fileId) {
+                console.log(fileId);
+                fileContent = Utils.getFileData(fileId) ?  Utils.getFileData(fileId) : "";
+            } else {
+                Utils.createFile(commands[0].trim());
+            }
+
+            window.ConsoleEditorFileId = fileId;
         }
 
-        return {message: <TextEditor content={"Hello from nano"} />}
+        return {message: <TextEditor content={fileContent} />}
     }
 }
