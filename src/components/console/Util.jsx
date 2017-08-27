@@ -41,6 +41,25 @@ export default class Utils {
         localStorage.setItem("filesys", JSON.stringify(currentFileSys));
     }
 
+    static getItemsInDir(path, data) {
+        let currentFileSys =  JSON.parse(localStorage.getItem("filesys"));
+        
+        let result = [];
+        if (!path) {
+            let preResult = Object.keys(currentFileSys);
+
+            // console.log()
+            preResult.forEach((val, key) => {
+                result.push({
+                    name: val,
+                    type: typeof currentFileSys[val]
+                });
+            });
+        }
+
+        return result;
+    }
+
     static getFirstWord(words) {
         let wordArray = words.split(" ");
         return wordArray[0];

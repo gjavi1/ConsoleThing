@@ -2,16 +2,8 @@ import React, { Component } from 'react';
 import Utils from './console/Util'; 
 import {ConsolePrompt, ConsoleCommand, SearchDirection} from './console/ConsolePrompt';
 import ConsoleMessage from './console/ConsoleMessage';
-import Exit from './commands/Exit';
-import Clear from './commands/Clear';
-import Mkdir from './commands/Mkdir';
-import Rmdir from './commands/Rmdir';
-import Echo from './commands/Echo';
-import Touch from './commands/Touch';
+import {Commands} from "./commands/index";
 import ErrorMessage from './ErrorMessage';
-import Lelecho from './commands/Lelecho';
-import Cowsay from './commands/Cowsay'
-let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Lelecho, Touch, Cowsay];
 
 class Console extends Component {
     constructor(props) {
@@ -221,7 +213,7 @@ class Console extends Component {
 		let commandFound = false;
 		let self = this;
 
-		commands.forEach(function(e) {
+		Commands.forEach(function(e) {
 			if (Utils.getFirstWord(command).toLowerCase() == e.match().toLowerCase()) {
 				out = e.do(command, self.state.consoleState);
 				commandFound = true;
@@ -235,14 +227,14 @@ class Console extends Component {
 		if (commandFound === true) {
 			if (out.appendLog !== false) {
 				log.push({
-					label: this.state.currLabel,
+					label: this.state.consoleState.pwd + this.state.currLabel,
 					command: command,
 					message: out.message
 				});
 			} 
 		} else {
 			log.push({
-				label: this.state.currLabel,
+				label: this.state.consoleState.pwd + this.state.currLabel,
 				command: command,
 				message: <ErrorMessage message="Command Not Found" />
 			});
@@ -376,7 +368,7 @@ class Console extends Component {
 			this.child.typer.value = "";
 			let log = this.state.log;
 			log.push({
-				label: this.state.currLabel,
+				label: this.state.consoleState.pwd + this.state.currLabel,
 				command: this.state.promptText,
 				message: ""
 			});
@@ -546,7 +538,7 @@ class Console extends Component {
 			})}
 			{this.state.acceptInput?
 				<ConsolePrompt
-					label={this.state.currLabel}
+					label={this.state.consoleState.pwd + this.state.currLabel}
 					value={this.state.promptText}
 					point={this.state.point}
 					argument={this.state.argument}
@@ -580,7 +572,7 @@ class Console extends Component {
 }
 
 Console.defaultProps = {
-    autofocus: true,
+    autofocus: false,
     promptLabel: '> ',
     continue: function() { return false; },
     cancel: function() {}
