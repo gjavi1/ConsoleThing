@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDom from 'react-dom';
 import './App.css';
 
 import Console from './components/Console'
@@ -29,6 +30,7 @@ class App extends Component {
     
     componentDidMount() {
         let currentFileSys = localStorage.getItem("filesys");
+        let currentFiles = localStorage.getItem("fileitems");
 
         if (currentFileSys) {
             localStorage.setItem('filesys', currentFileSys);
@@ -38,17 +40,37 @@ class App extends Component {
             }
             localStorage.setItem('filesys', '{}');            
         }
+
+        if (currentFiles) {
+            localStorage.setItem('fileitems', currentFiles);
+        } else {
+            localStorage.setItem('fileitems', '{}');            
+        }
+        
+        window.onkeydown = function(evt) {
+            evt = evt || window.event;
+            var isEscape = false;
+            if ("key" in evt) {
+                isEscape = (evt.key == "Escape" || evt.key == "Esc");
+            } else {
+                isEscape = (evt.keyCode == 27);
+            }
+            if (isEscape) {
+                if (typeof window.ConsoleEditor !== "undefined") {
+                    window.ConsoleEditor = undefined;
+                    document.getElementById('nano-text-editor').remove();
+                }
+            }
+        };
     }
 
     render() {
-        return <TextEditor />
-        
-        // <Console ref={ref => this.child.console = ref}
-        //     handler={this.echo}
-        //     promptLabel={this.promptLabel()}
-        //     welcomeMessage={"ConsoleThingy"}
-        //     autofocus={true}
-        // />;
+        return <Console ref={ref => this.child.console = ref}
+            handler={this.echo}
+            promptLabel={this.promptLabel()}
+            welcomeMessage={"ConsoleThingy"}
+            autofocus={true}
+        />;
     }
 }
 

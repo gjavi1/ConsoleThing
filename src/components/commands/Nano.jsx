@@ -1,5 +1,6 @@
 import Utils from '../console/Util';
 import React, {Component} from 'react';
+import TextEditor from "../console/TextEditor";
 
 export default class Nano {
     static match() {
@@ -22,6 +23,6 @@ export default class Nano {
             Utils.createFile(commands[0].trim());
         }
 
-        return {message: ""}
+        return {message: <TextEditor content={"Hello from nano"} />}
     }
 }
