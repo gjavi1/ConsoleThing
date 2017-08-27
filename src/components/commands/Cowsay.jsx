@@ -1,44 +1,27 @@
 import React from 'react';
 import Echo from './Echo';
 
-export default class Lelecho {
+export default class Cowsay {
     static match() {
-        return "lelecho";
+        return "Cowsay";
     }
 
     static do(command) {
-        extractedSay = Echo.do(command).message;
-        wrappedLines = Math.ceil(extractedSay.length / 80);
+        let extractedSay = Echo.do(command).message;
         return {message: 
-            <span>
-                {function () {
-                    let outputString = '/';
-                    for(let i = 0; i < extractedSay; i++) {
-                        outputString = outputString + '-';
-                    }
-                    outputString = outputString + '\\';
-                    outputString = <span>{outputString}<br/></span>;
-                    return outputString;
-                } 
-                }
-                {function() {
-                    let finalString = <span>{outputString};
-                    for (let i = 0; i < extractedSay.length, i++){
-                        if (i % 80 == 0 && i != 0) {
-                            outputString = ou  
-                        } else {
-
-                        }
-                    }
-                }
-                }
-            \   ^__^<br/>
-             \  (oo)\_______<br/>
-                (__)\       )\/\<br/>
-                     ||----w |<br/>
-                     ||     ||<br/>
-            </span>
+            <span> 
+            <div className='cowMessage'>
+                {extractedSay}
+            </div>
             
+            <pre>
+\   ^__^<br/>
+{' '}\  (oo)\_______<br/>
+{'    '}(__)\       )\<br/>
+{'        '}||----w |<br/>
+{'        '}||     ||<br/>   
+            </pre>
+            </span>
         };
     }
 }

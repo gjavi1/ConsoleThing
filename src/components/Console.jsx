@@ -10,7 +10,8 @@ import Echo from './commands/Echo';
 import Touch from './commands/Touch';
 import ErrorMessage from './ErrorMessage';
 import Lelecho from './commands/Lelecho';
-let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Lelecho, Touch];
+import Cowsay from './commands/Cowsay'
+let commands = [Exit, Clear, Mkdir, Rmdir, Echo, Lelecho, Touch, Cowsay];
 
 class Console extends Component {
     constructor(props) {
