@@ -18,6 +18,9 @@ import Help from './Help';
 import Cowsay from './Cowsay';
 import Lelcowsay from './Lelcowsay';
 import Fortune from './Fortune';
+import Lelfortune from './Lelfortune';
+import Fortunecowsay from './Fortunecowsay';
+import Lelfortunecowsay from './Lelfortunecowsay';
 
 export const Commands = [
     Exit, 
@@ -40,6 +43,9 @@ export const Commands = [
     Help,
     Cowsay,
     Lelcowsay,
-    Fortune
+    Fortune,
+    Lelfortune,
+    Fortunecowsay,
+    Lelfortunecowsay
 ];
 

@@ -7,7 +7,7 @@ export default class Lelecho {
     }
 
     static do(command) {
-        return {message: <span className='lelMessage'> {Echo.do(command).message} </span>};
+        return {message: <div className='lelMessage'> {Echo.do(command).message} </div>};
     }
 
     static help() {
